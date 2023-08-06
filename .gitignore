@@ -1,0 +1,71 @@
+# Zendesk App .gitignore
+
+# Ignore Node.js related files
+node_modules/
+npm-debug.log*
+
+# Ignore build artifacts
+dist/
+tmp/
+
+# Ignore credentials and sensitive information
+config/*.json
+
+# Ignore logs and other generated files
+logs/
+*.log
+*.log.*
+*.pid
+
+# Ignore personal text editor or IDE files
+.vscode/
+.idea/
+*.sublime-*
+
+# Ignore ZIP archives and package releases
+*.zip
+*.tar.gz
+
+# Ignore Composer dependencies
+vendor/
+
+# Ignore user-specific config
+.zendesk-config
+
+# Ignore any local environment files
+.env
+
+# Ignore compiled assets and cache
+cache/
+public/assets/
+
+# Ignore database files
+db/*.sqlite3
+db/*.sqlite3-*
+
+# Ignore any generated documentation
+doc/
+docs/
+
+# Ignore any backup or temporary files
+*.bak
+*.swp
+*~
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
+
+# Ignore backup directories
+backup/
+backups/
+
+# Ignore generated files
+*.min.js
+*.min.css
+
+# Ignore testing and debugging artifacts
+coverage/
+
+# Ignore any editor backup folders
+backup/
