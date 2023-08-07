@@ -2,13 +2,24 @@
     var client = ZAFClient.init();
     client.invoke('resize', { width: '100%', height: '120px' });
 
-    function showInfo() {
-        var requester_data = {
-          'name': 'Jane Doe',
-          'tags': ['tag1', 'tag2'],
-          'created_at': 'November 20, 2014',
-          'last_login_at': 'June 27, 2016'
+    function formatDate(date) {
+        var cdate = new Date(date);
+        var options = {
+          year: "numeric",
+          month: "short",
+          day: "numeric"
         };
+        date = cdate.toLocaleDateString("en-us", options);
+        return date;
+      }
+
+    function showInfo(data) {
+        var requester_data = {
+            'name': data.user.name,
+            'tags': data.user.tags,
+            'created_at': formatDate(data.user.created_at),
+            'last_login_at': formatDate(data.user.last_login_at)
+          };
       
         var source = document.getElementById("requester-template").innerHTML;
         var template = Handlebars.compile(source);
@@ -16,18 +27,38 @@
         document.getElementById("content").innerHTML = html;
       }
 
-    function showError() {
+    function showError(response) {
         var error_data = {
-            'status': 404,
-            'statusText': 'Not found'
-        };
-        
+            'status': response.status,
+            'statusText': response.statusText
+          };
+
         var source = document.getElementById("error-template").innerHTML;
         var template = Handlebars.compile(source);
         var html = template(error_data);
         document.getElementById("content").innerHTML = html;
     }
 
-    // showInfo();
-    showError();
+    function requestUserInfo(client, id) {
+        var settings = {
+            url: '/api/v2/users/' + id + '.json',
+            type:'GET',
+            dataType: 'json',
+        };
+        
+        client.request(settings).then(
+            function(data) {
+                showInfo(data);
+            },
+            function(response) {
+                showError(response);
+            }
+        );
+    }
+
+    client.get('ticket.requester.id').then(function(data) {
+        var user_id = data['ticket.requester.id'];
+        requestUserInfo(client, user_id);
+      });
+
   })();

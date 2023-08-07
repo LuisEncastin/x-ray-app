@@ -32,10 +32,12 @@
       <td>Added:</td>
       <td class="data">{{created_at}}</td>
     </tr>
+    {{#if last_login_at}}
     <tr>
       <td>Last signed in:</td>
       <td class="data">{{last_login_at}}</td>
     </tr>
+    {{/if}}
     </table>
   </script>
   <script id="error-template" type="text/x-handlebars-template">
